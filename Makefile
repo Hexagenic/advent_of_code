@@ -24,4 +24,4 @@ day%: output/day% input/day%.txt
 	./$< part2 < $(word 2,$^)
 
 day%-test: output/day%-test
-	./$<
+	./$< -fc
