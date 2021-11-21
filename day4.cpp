@@ -48,12 +48,12 @@ TEST_CASE("Part 1")
 {
     SUBCASE("Example 1")
     {
-        REQUIRE(lowestNum("abcdef") == 609043);
+        REQUIRE(lowestNum("abcdef", false) == 609043);
     }
 
     SUBCASE("Example 2")
     {
-        REQUIRE(lowestNum("pqrstuv") == 1048970);
+        REQUIRE(lowestNum("pqrstuv", false) == 1048970);
     }
 }
 
