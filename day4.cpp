@@ -2,6 +2,7 @@
 #include <utility>
 #include "common.h"
 #include <openssl/md5.h>
+#include <cstdint>
 
 bool isMatch(const std::string &key, int number, bool part2)
 {
@@ -13,7 +14,8 @@ bool isMatch(const std::string &key, int number, bool part2)
     MD5_Update(&c, numberStr.c_str(), numberStr.size());
     MD5_Final(out, &c);
 
-    return out[0] == 0 && out[1] == 0 && (part2 ? (out[2] == 0) : (out[2] < 0x10));
+    uint64_t* out_u64 = (uint64_t*)out;
+    return (((uint64_t) *out_u64) & (part2 ? 0xFFFFFF : 0xF0FFFF) ) == 0;
 }
 
 int lowestNum(const std::string &key, bool part2)
