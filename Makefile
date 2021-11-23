@@ -12,11 +12,20 @@ build: $(executables) $(tests)
 
 output/%: %.cpp
 	@mkdir -p output
-	g++ -O3 -Wall -Wextra -Werror -Wpedantic $< -lcrypto -o $@
+	g++ -O3 -Wall -Wextra -Werror -Wpedantic $< -o $@
 
 output/%-test: %.cpp third-party/doctest.h
 	@mkdir -p output
-	g++ -O3 -Wall -Wextra -Werror -Wpedantic -DBUILD_TESTS $< -lcrypto  -o $@
+	g++ -O3 -Wall -Wextra -Werror -Wpedantic -DBUILD_TESTS $< -o $@
+
+# Day4 requires an MD5 function implementation, use the one from libssl
+output/day4: day4.cpp
+	@mkdir -p output
+	g++ -O3 -Wall -Wextra -Werror -Wpedantic $< -lcrypto -o $@
+
+output/day4-test: day4.cpp third-party/doctest.h
+	@mkdir -p output
+	g++ -O3 -Wall -Wextra -Werror -Wpedantic -DBUILD_TESTS $< -lcrypto -o $@
 
 # Build and run specific day. Example: `make day3`
 day%: output/day% input/day%.txt
