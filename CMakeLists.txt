@@ -8,4 +8,3 @@ target_link_libraries(aoc2015 -lcrypto)
 target_link_libraries(aoc2015_test -lcrypto)
 
 target_compile_definitions(aoc2015 PUBLIC -DDOCTEST_CONFIG_DISABLE)
-target_compile_definitions(aoc2015_test PUBLIC)

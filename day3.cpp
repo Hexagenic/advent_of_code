@@ -5,19 +5,16 @@
 
 using House = std::pair<int, int>;
 
-struct pair_hash
-{
-    template <class T1, class T2>
-    std::size_t operator()(const std::pair<T1, T2> &pair) const
-    {
+struct pair_hash {
+    template<class T1, class T2>
+    std::size_t operator()(const std::pair<T1, T2> &pair) const {
         return std::hash<T1>()(pair.first) ^ std::hash<T2>()(pair.second);
     }
 };
 
 using VisitedHouses = std::unordered_set<House, pair_hash>;
 
-int santaTravel(std::istream &input, bool withRobot = false)
-{
+int santaTravel(std::istream &input, bool withRobot = false) {
     VisitedHouses visitedHouses = {{0, 0}};
 
     char c;
@@ -25,11 +22,9 @@ int santaTravel(std::istream &input, bool withRobot = false)
     House currentHouse = std::make_pair(0, 0);
     House alternateHouse = std::make_pair(0, 0);
 
-    while (true)
-    {
+    while (true) {
         input.get(c);
-        if (input.eof())
-        {
+        if (input.eof()) {
             break;
         }
 
@@ -64,16 +59,13 @@ REGISTER_SOLUTION(3, [](auto stream, auto part) {
 
 #include <sstream>
 
-int santaTravel(std::string &&input, bool withRobot = false)
-{
+int santaTravel(std::string &&input, bool withRobot = false) {
     std::istringstream stream(input);
     return santaTravel(stream, withRobot);
 }
 
-TEST_SUITE("Day 3")
-{
-TEST_CASE("Part 1")
-{
+TEST_SUITE("Day 3") {
+TEST_CASE("Part 1") {
     SUBCASE("Example 1") {
         REQUIRE(santaTravel(">") == 2);
     }
@@ -87,8 +79,7 @@ TEST_CASE("Part 1")
     }
 }
 
-TEST_CASE("Part 2")
-{
+TEST_CASE("Part 2") {
     SUBCASE("Example 1") {
         REQUIRE(santaTravel("^v", true) == 3);
     }

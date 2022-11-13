@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include "third-party/doctest.h"
+
 #pragma clang diagnostic ignored "-Woverloaded-shift-op-parentheses"
 
 enum class Part {
@@ -9,19 +10,20 @@ enum class Part {
     second
 };
 
-typedef int (*SolutionPtr)(std::istream& input, Part part);
+typedef int (*SolutionPtr)(std::istream &input, Part part);
 
-class SolutionRegister
-{
+class SolutionRegister {
 public:
     static int registerSolution(int i, SolutionPtr fun_ptr);
 
     static SolutionPtr getSolution(int i);
+
 private:
     SolutionRegister() = default;
+
     int internalRegister(int i, SolutionPtr fun_ptr);
 
-    static SolutionRegister& getSolutionRegisterInstance();
+    static SolutionRegister &getSolutionRegisterInstance();
 
     SolutionPtr func_ptrs[25] = {nullptr};
 };

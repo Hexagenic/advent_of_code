@@ -1,6 +1,6 @@
 #include "common.h"
 
-SolutionRegister& SolutionRegister::getSolutionRegisterInstance() {
+SolutionRegister &SolutionRegister::getSolutionRegisterInstance() {
     static SolutionRegister instance;
     return instance;
 }
