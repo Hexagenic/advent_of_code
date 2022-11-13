@@ -79,7 +79,7 @@ std::ostream &operator<<(std::ostream &os, const Measurements &m) {
     return os;
 }
 
-TEST_SUITE("Day 2") {
+TEST_SUITE("Day 02") {
 TEST_CASE("Part 1") {
     SUBCASE("Example 1") {
         REQUIRE(paperArea({2, 3, 4}) == 58);

@@ -63,7 +63,7 @@ int santaTravel(std::string &&input, bool withRobot = false) {
     return santaTravel(stream, withRobot);
 }
 
-TEST_SUITE("Day 3") {
+TEST_SUITE("Day 03") {
 TEST_CASE("Part 1") {
     SUBCASE("Example 1") {
         REQUIRE(santaTravel(">") == 2);

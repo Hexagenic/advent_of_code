@@ -37,7 +37,7 @@ std::pair<int, int> consume(std::string &&input) {
     return consume(stream);
 }
 
-TEST_SUITE("Day 1") {
+TEST_SUITE("Day 01") {
 TEST_CASE("Part 1") {
     SUBCASE("Example 1") {
         REQUIRE(consume("(())").first == 0);
