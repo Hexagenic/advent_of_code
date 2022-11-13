@@ -1,5 +1,5 @@
 #include <iostream>
-#include <utility>
+#include <string>
 #include "common.h"
 #include <openssl/md5.h>
 #include <cstdint>
@@ -14,7 +14,7 @@ bool isMatch(const std::string &key, int number, bool part2)
     MD5_Update(&c, numberStr.c_str(), numberStr.size());
     MD5_Final(out, &c);
 
-    uint64_t* out_u64 = (uint64_t*)out;
+    auto* out_u64 = (uint64_t*)out;
     return (((uint64_t) *out_u64) & (part2 ? 0xFFFFFF : 0xF0FFFF) ) == 0;
 }
 
@@ -31,21 +31,13 @@ int lowestNum(const std::string &key, bool part2)
     return -1;
 }
 
-#ifdef MAIN_BLOCK
-int main(int argc, char *argv[])
+REGISTER_SOLUTION(4, [](auto stream, auto part) {
+    std::string line; std::getline(stream, line);
+    return lowestNum(line, part == Part::second);
+})
+
+TEST_SUITE("Day 4")
 {
-    std::cout << "=== Day 4 ===\n";
-    for (std::string line; std::getline(std::cin, line);)
-    {
-        std::cout << lowestNum(line, isPart2(argc, argv)) << '\n';
-    }
-    std::cout << '\n';
-
-    return 0;
-}
-#endif
-
-#ifdef TEST_BLOCK
 TEST_CASE("Part 1")
 {
     SUBCASE("Example 1")
@@ -58,5 +50,5 @@ TEST_CASE("Part 1")
         REQUIRE(lowestNum("pqrstuv", false) == 1048970);
     }
 }
+}
 
-#endif

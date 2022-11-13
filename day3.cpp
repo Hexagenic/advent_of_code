@@ -58,19 +58,9 @@ int santaTravel(std::istream &input, bool withRobot = false)
     return visitedHouses.size();
 }
 
-#ifdef MAIN_BLOCK
-int main(int argc, char *argv[])
-{
-    const int visitedHouses = santaTravel(std::cin, isPart2(argc, argv));
-    std::cout << "=== Day 3 ===\n";
-    std::cout << "Houses with at least one present: " << visitedHouses << '\n';
-    std::cout << '\n';
-
-    return 0;
-}
-#endif
-
-#ifdef TEST_BLOCK
+REGISTER_SOLUTION(3, [](auto stream, auto part) {
+    return santaTravel(stream, part == Part::second);
+})
 
 #include <sstream>
 
@@ -80,40 +70,35 @@ int santaTravel(std::string &&input, bool withRobot = false)
     return santaTravel(stream, withRobot);
 }
 
+TEST_SUITE("Day 3")
+{
 TEST_CASE("Part 1")
 {
-    SUBCASE("Example 1")
-    {
+    SUBCASE("Example 1") {
         REQUIRE(santaTravel(">") == 2);
     }
 
-    SUBCASE("Example 2")
-    {
+    SUBCASE("Example 2") {
         REQUIRE(santaTravel("^>v<") == 4);
     }
 
-    SUBCASE("Example 3")
-    {
+    SUBCASE("Example 3") {
         REQUIRE(santaTravel("^v^v^v^v^v") == 2);
     }
 }
 
 TEST_CASE("Part 2")
 {
-    SUBCASE("Example 1")
-    {
+    SUBCASE("Example 1") {
         REQUIRE(santaTravel("^v", true) == 3);
     }
 
-    SUBCASE("Example 2")
-    {
+    SUBCASE("Example 2") {
         REQUIRE(santaTravel("^>v<", true) == 3);
     }
 
-    SUBCASE("Example 3")
-    {
+    SUBCASE("Example 3") {
         REQUIRE(santaTravel("^v^v^v^v^v", true) == 11);
     }
 }
-
-#endif
+}

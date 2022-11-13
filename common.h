@@ -1,23 +1,37 @@
-#ifndef AOC_COMMON_H
-#define AOC_COMMON_H
+#pragma once
 
-#include <cstring>
-
-#ifdef BUILD_TESTS
-#define TEST_BLOCK
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#include <fstream>
 #include "third-party/doctest.h"
+#pragma clang diagnostic ignored "-Woverloaded-shift-op-parentheses"
+
+enum class Part {
+    first,
+    second
+};
+
+typedef int (*SolutionPtr)(std::istream& input, Part part);
+
+class SolutionRegister
+{
+public:
+    static int registerSolution(int i, SolutionPtr fun_ptr);
+
+    static SolutionPtr getSolution(int i);
+private:
+    SolutionRegister() = default;
+    int internalRegister(int i, SolutionPtr fun_ptr);
+
+    static SolutionRegister& getSolutionRegisterInstance();
+
+    SolutionPtr func_ptrs[25] = {nullptr};
+};
+
+#ifdef DOCTEST_CONFIG_DISABLE
+
+#define REGISTER_SOLUTION(I, F) namespace { int dummy =  SolutionRegister::registerSolution(I, F); }
+
 #else
-#define MAIN_BLOCK
-#endif
 
-constexpr bool isPart1(int argc, char *argv[]) {
-    return argc == 1 || strcmp(argv[1], "part1") == 0;
-}
-
-
-constexpr bool isPart2(int argc, char *argv[]) {
-    return argc >= 2 && strcmp(argv[1], "part2") == 0;
-}
+#define REGISTER_SOLUTION(I, F)
 
 #endif
