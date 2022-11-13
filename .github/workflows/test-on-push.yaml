@@ -9,7 +9,5 @@ jobs:
       - run: cmake -Bbuild -H. -DCMAKE_BUILD_TYPE=Release
       - run: make all
         working-directory: ./build
-      - run: ./aoc2015_test
-        working-directory: ./build
-      - run: ./aoc2015
-        working-directory: ./build
+      - run: ./build/aoc2015_test
+      - run: ./build/aoc2015
