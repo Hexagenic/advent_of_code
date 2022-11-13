@@ -1,5 +1,6 @@
 #include <iostream>
 #include <utility>
+#include <sstream>
 #include "common.h"
 
 std::pair<int, int> consume(std::istream &input) {
@@ -30,8 +31,6 @@ REGISTER_SOLUTION(1, [](std::istream &stream, Part part) {
     auto res = consume(stream);
     return part == Part::first ? res.first : res.second;
 })
-
-#include <sstream>
 
 std::pair<int, int> consume(std::string &&input) {
     std::istringstream stream(input);

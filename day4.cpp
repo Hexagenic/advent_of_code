@@ -1,4 +1,3 @@
-#include <iostream>
 #include <string>
 #include "common.h"
 #include <openssl/md5.h>
@@ -35,13 +34,11 @@ REGISTER_SOLUTION(4, [](auto stream, auto part) {
 
 TEST_SUITE("Day 4") {
 TEST_CASE("Part 1") {
-    SUBCASE("Example 1")
-    {
+    SUBCASE("Example 1") {
         REQUIRE(lowestNum("abcdef", false) == 609043);
     }
 
-    SUBCASE("Example 2")
-    {
+    SUBCASE("Example 2") {
         REQUIRE(lowestNum("pqrstuv", false) == 1048970);
     }
 }

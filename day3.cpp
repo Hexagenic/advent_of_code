@@ -1,7 +1,8 @@
 #include <iostream>
 #include <utility>
-#include "common.h"
+#include <sstream>
 #include <unordered_set>
+#include "common.h"
 
 using House = std::pair<int, int>;
 
@@ -56,8 +57,6 @@ int santaTravel(std::istream &input, bool withRobot = false) {
 REGISTER_SOLUTION(3, [](auto stream, auto part) {
     return santaTravel(stream, part == Part::second);
 })
-
-#include <sstream>
 
 int santaTravel(std::string &&input, bool withRobot = false) {
     std::istringstream stream(input);
