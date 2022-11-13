@@ -6,6 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: cmake -Bbuild -H.
       - run: make build
+        working-directory: ./build
       - run: make test
+        working-directory: ./build
       - run: make run
+        working-directory: ./build
