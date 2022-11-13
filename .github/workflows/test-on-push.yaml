@@ -6,10 +6,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cmake -Bbuild -H.
-      - run: make build
+      - run: cmake -Bbuild -H. -DCMAKE_BUILD_TYPE=Release
+      - run: make all
         working-directory: ./build
-      - run: make test
+      - run: ./aoc2015_test
         working-directory: ./build
-      - run: make run
+      - run: ./aoc2015
         working-directory: ./build
