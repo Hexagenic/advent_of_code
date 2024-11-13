@@ -1,13 +1,16 @@
 on: [push, pull_request]
-name: Test Advent of Code
+name: Advent of Code
 jobs:
-  test:
-    name: Build and test C++
+  aoc_2015:
+    name: "2015"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - run: cmake -Bbuild -H. -DCMAKE_BUILD_TYPE=Release
+        working-directory: ./2015
       - run: make all
-        working-directory: ./build
+        working-directory: ./2015/build
       - run: ./build/aoc2015_test -fc
+        working-directory: ./2015
       - run: ./build/aoc2015
+        working-directory: ./2015
