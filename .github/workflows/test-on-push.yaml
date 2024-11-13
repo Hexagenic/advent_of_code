@@ -1,16 +1,44 @@
 on: [push, pull_request]
 name: Advent of Code
+env:
+  CARGO_TERM_COLOR: always
 jobs:
-  aoc_2015:
-    name: "2015"
+  cpp:
+    strategy:
+      matrix:
+        year: [2015]
+    name: C++ ${{ matrix.year }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4.2.2
       - run: cmake -Bbuild -H. -DCMAKE_BUILD_TYPE=Release
-        working-directory: ./2015
+        working-directory: ./${{ matrix.year }}
       - run: make all
-        working-directory: ./2015/build
-      - run: ./build/aoc2015_test -fc
-        working-directory: ./2015
-      - run: ./build/aoc2015
-        working-directory: ./2015
+        working-directory: ./${{ matrix.year }}/build
+      - run: ./build/aoc${{ matrix.year }}_test -fc
+        working-directory: ./${{ matrix.year }}
+      - run: ./build/aoc${{ matrix.year }}
+        working-directory: ./${{ matrix.year }}
+  rust:
+    strategy:
+      matrix:
+        year: [2021, 2022]
+    name: Rust ${{ matrix.year }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: Build
+        run: cargo build --release --verbose
+        working-directory: ./${{ matrix.year }}
+      - name: Run solutions
+        run: time ./target/release/advent_of_code_${{ matrix.year }}
+        working-directory: ./${{ matrix.year }}
+      - name: Run tests
+        run: cargo test --verbose
+        working-directory: ./${{ matrix.year }}
+      - name: Run clippy
+        run: cargo clippy
+        working-directory: ./${{ matrix.year }}
+      - name: Run fmt
+        run: cargo fmt -- --check
+        working-directory: ./${{ matrix.year }}
