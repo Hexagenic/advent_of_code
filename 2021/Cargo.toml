@@ -1,0 +1,27 @@
+[package]
+name = "advent_of_code_2021"
+version = "0.0.1"
+edition = "2021"
+
+[features]
+with-rayon = []
+
+[dev-dependencies]
+criterion = {version="0.5.1", features=["html_reports"]}
+
+[dependencies]
+rayon = "1.10.0"
+hex = "0.4.3"
+regex = "1.10.4"
+
+[[bench]]
+name = "aoc_bench"
+harness = false
+
+[lib]
+bench = false
+
+[[bin]]
+name = "advent_of_code_2021"
+path = "src/main.rs"
+bench = false
