@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "name": "day",
+            "defines": []
+        },
+        {
+            "name": "day-test",
+            "defines": [
+                "BUILD_TESTS"
+            ]
+        }
+    ],
+    "version": 4
+}
