@@ -1,34 +1,20 @@
-import { day01_part1, day01_part2 } from './day01';
+import day01 from './day01';
 
-type Solution = () => Promise<number>;
+type Solution = () => [number, number?];
 
-async function print_solution(
-  day: number,
-  solution1: Solution,
-  solution2?: Solution,
-) {
+function print_solution(day: number, solution: Solution) {
   const start = new Date().getTime();
-  const part1 = await solution1();
-  const part2 = await solution2?.();
+  const result = solution();
   const end = new Date().getTime();
 
   const time = `${end - start} ms`;
 
-  console.log(
-    `day ${day.toString().padStart(2, ' ')}`,
-    [part1, part2],
-    '-',
-    time,
-  );
+  console.log(`day ${day.toString().padStart(2, ' ')}`, result, '-', time);
 }
 
-async function main() {
-  console.time('execution');
+console.time('execution');
 
-  await print_solution(1, day01_part1, day01_part2);
+print_solution(1, day01);
 
-  console.log();
-  console.timeEnd('execution');
-}
-
-main();
+console.log();
+console.timeEnd('execution');
