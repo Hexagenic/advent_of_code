@@ -3,13 +3,13 @@ import day01 from './day01';
 type Solution = () => [number, number?];
 
 function print_solution(day: number, solution: Solution) {
-  const start = new Date().getTime();
+  const start = process.hrtime.bigint();
   const result = solution();
-  const end = new Date().getTime();
+  const end = process.hrtime.bigint();
+  const timeBig = end - start;
+  const time = parseInt(timeBig.toString()) / 1000000;
 
-  const time = `${end - start} ms`;
-
-  console.log(`day ${day.toString().padStart(2, ' ')}`, result, '-', time);
+  console.log(`day ${day.toString().padStart(2, ' ')}`, result, '-', `${time.toFixed(5)} ms`);
 }
 
 console.time('execution');
