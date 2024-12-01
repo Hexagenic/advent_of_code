@@ -11,6 +11,7 @@ async function print_solution(day: number, part1: Solution, part2?: Solution) {
 }
 
 async function main() {
+  console.time('execution')
   const solutions = await Promise.all([
     print_solution(1, day01_part1, day01_part2),
   ]);
@@ -23,6 +24,7 @@ async function main() {
   }, {});
 
   console.table(solutionByDay);
+  console.timeEnd('execution')
 }
 
 main();
