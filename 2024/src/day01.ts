@@ -8,18 +8,21 @@ export default function day01(): [number, number] {
 
   let part1 = 0;
 
+  const rightMap = new Map<number, number>();
+
   for (const line of lines) {
     if (!line.length) continue;
     const [l, r] = line.split('   ').map((v) => parseInt(v));
     ls.push(l);
     rs.push(r);
     part1 += Math.abs(l - r);
+    rightMap.set(r, (rightMap.get(r) ?? 0) + 1);
   }
 
   let part2 = 0;
 
   for (const l of ls) {
-    const count = rs.filter((r) => r === l).length;
+    const count = rightMap.get(l) ?? 0;
     part2 += count * l;
   }
 
