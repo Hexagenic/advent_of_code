@@ -1,8 +1,10 @@
 import fs from 'fs';
 
-function isSafe(line: number[]): boolean {
+function getUnsafety(line: number[]): number {
   let dir: 'l' | 'r' | null = null;
   let previous: number | null = null;
+
+  let errorCount = 0;
 
   for (let num of line) {
     if (previous == null) {
@@ -11,9 +13,10 @@ function isSafe(line: number[]): boolean {
     }
 
     const diff = Math.abs(num - previous);
+    let hasError = false;
 
     if (diff < 1 || diff > 3) {
-      return false;
+      hasError = true;
     }
 
     const localDir = previous < num ? 'r' : 'l';
@@ -21,25 +24,17 @@ function isSafe(line: number[]): boolean {
     if (dir == null) {
       dir = localDir;
     } else if (dir != localDir) {
-      return false;
+      hasError = true;
+    }
+    
+    if (hasError) {
+      errorCount++;
     }
 
     previous = num;
   }
 
-  return true;
-}
-
-function isSafeDampened(line: number[]): boolean {
-  for (let i = 0; i < line.length; i++) {
-    const dampenedLine = line.slice();
-    dampenedLine.splice(i, 1);
-
-    if (isSafe(dampenedLine)) {
-      return true;
-    }
-  }
-  return false;
+  return errorCount;
 }
 
 export default function day02() {
@@ -56,11 +51,13 @@ export default function day02() {
 
     const nums = line.split(' ').map((v) => parseInt(v));
 
-    if (isSafe(nums)) {
+    let errors = getUnsafety(nums);
+
+    if (errors === 0) {
       safeLines++;
     }
 
-    if (isSafeDampened(nums)) {
+    if (errors <= 1) {
       safeLinesWithDampening++;
     }
   }
